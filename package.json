@@ -6,7 +6,7 @@
   "author": "LifeOmic Dev",
   "license": "MIT",
   "scripts": {
-    "test": "node --expose-gc ./node_modules/.bin/jest --runInBand --logHeapUsage",
+    "test": "npx jest",
     "start": "",
     "validate": "pushd problems/ && ts-node"
   },
