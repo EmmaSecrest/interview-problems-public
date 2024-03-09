@@ -11,7 +11,38 @@
  * @return {Array<Array<TreeNode>>} an array whose items are arrays that
  *   represent path to each leaf node at the greatest depth
  */
-export async function traverseTree (tree: object): Promise<object[][]> {
-  // TODO: Implement this.
-  return [[{}]];
+
+interface TreeNode {
+  data: string;
+  children: TreeNode[];
+}
+
+export async function traverseTree (tree: TreeNode): Promise<string[][]> {
+  const queue: TreeNode[][] = [];
+  let maxDepth = 0;
+  let paths: string[][] = [];
+
+  if (tree) {
+    queue.push([tree]);
+  }
+
+  while (queue.length > 0) {
+    const currentPath = queue.shift()!;
+    const currentNode = currentPath[currentPath.length - 1];
+
+    if (currentPath.length > maxDepth) {
+      maxDepth = currentPath.length;
+      paths = [currentPath.map(node => node.data)];
+    } else if (currentPath.length === maxDepth) {
+      paths.push(currentPath.map(node => node.data));
+    }
+
+    if(currentNode.children) {
+      for (const child of currentNode.children) {
+        queue.push([...currentPath, child]);
+      }
+    }
+  }
+
+  return paths;
 }
