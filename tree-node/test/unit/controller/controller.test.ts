@@ -6,7 +6,7 @@ import { traverseTree ,TreeNode} from '../../../src/util/treeUtils';
   const app = express();
   app.use(express.json());
   
-  app.post('/path', async (req, res) => {
+  app.post('/path',  (req, res) => {
     const tree: TreeNode = req.body;
   
     if (!tree) {
@@ -20,7 +20,7 @@ import { traverseTree ,TreeNode} from '../../../src/util/treeUtils';
     }
   
     try {
-      const paths = await traverseTree(tree);
+      const paths =  traverseTree(tree);
       res.json(paths);
     } catch (error) {
       res.status(500).send({ error: 'An error occurred while traversing the tree.' });

@@ -17,7 +17,7 @@ export interface TreeNode {
   children: TreeNode[];
 }
 
-export async function traverseTree (tree: TreeNode): Promise<string[][]> {
+export function traverseTree (tree: TreeNode): string[][] {
   if (!tree) {
     throw new Error('Invalid tree');
   }
