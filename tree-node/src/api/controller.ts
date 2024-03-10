@@ -1,21 +1,24 @@
-// The endpoint should receives a tree in the request body via a POST and then returns the path in the response
-import express from 'express';
-import { traverseTree ,TreeNode} from '../util/treeUtils'; 
+import { TreeNode, traverseTree} from '../util/treeUtils'
+import { Request, Response } from 'express';
 
-const app = express();
-app.use(express.json()); 
-
-app.post('/path', async (req, res) => {
+export async function controller (req:Request, res:Response) {
   const tree: TreeNode = req.body;
-  try {
-    const paths = await traverseTree(tree);
-    res.json(paths);
-  } catch (err) {
-    res.status(500).send(err.message);
-  }
-});
 
-const port = 3000;
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+  if (!tree) {
+    res.status(500).send({ error: 'Empty request body' });
+    return;
+  }
+
+  if (typeof tree !== 'object' || Array.isArray(tree) || !('data' in tree)) {
+    res.status(500).send({ error: 'Invalid tree' });
+    return;
+  }
+
+  try {
+    const paths =  traverseTree(tree);
+    res.json(paths);
+  } catch (error) {
+    res.status(500).send({ error: 'An error occurred while traversing the tree.' });
+ 
+  }
+}
