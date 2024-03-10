@@ -18,13 +18,17 @@ interface TreeNode {
 }
 
 export async function traverseTree (tree: TreeNode): Promise<string[][]> {
+  if (!tree) {
+    throw new Error('Invalid tree');
+  }
+
+  tree.children = tree.children || [];
+  
   const queue: TreeNode[][] = [];
   let maxDepth = 0;
   let paths: string[][] = [];
 
-  if (tree) {
-    queue.push([tree]);
-  }
+  queue.push([tree]);
 
   while (queue.length > 0) {
     const currentPath = queue.shift()!;
