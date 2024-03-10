@@ -1,15 +1,9 @@
-// todo: Implement an API controller with a REST endpoint
-//  The endpoint should receives a tree in the request body via a POST and then returns the path in the response
+// The endpoint should receives a tree in the request body via a POST and then returns the path in the response
 import express from 'express';
-import { traverseTree } from '../util/treeUtils'; // Import the traverseTree function and TreeNode interface
-
-interface TreeNode {
-  data: string;
-  children: TreeNode[];
-}
+import { traverseTree ,TreeNode} from '../util/treeUtils'; 
 
 const app = express();
-app.use(express.json()); // for parsing application/json
+app.use(express.json()); 
 
 app.post('/path', async (req, res) => {
   const tree: TreeNode = req.body;

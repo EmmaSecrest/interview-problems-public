@@ -12,7 +12,7 @@
  *   represent path to each leaf node at the greatest depth
  */
 
-interface TreeNode {
+export interface TreeNode {
   data: string;
   children: TreeNode[];
 }

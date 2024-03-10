@@ -1,11 +1,7 @@
 import request from 'supertest';
 import express from 'express';
-import { traverseTree } from '../../../src/util/treeUtils';
+import { traverseTree ,TreeNode} from '../../../src/util/treeUtils';
 
-interface TreeNode {
-    data: string;
-    children: TreeNode[];
-  }
 
   const app = express();
   app.use(express.json());
